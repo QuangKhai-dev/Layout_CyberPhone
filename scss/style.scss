@@ -1,0 +1,247 @@
+/* Khai báo biến trong scss
+
+
+*/
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+$color-background : #f5f9fe;
+$color-blue-1 : #2A72DC;
+$color-blue-2: #1D355E;
+$color-rate : #F9D310;
+
+// box-shadow 
+$box-shadow-header :0 2px 4px #e2ebfc;
+$box-shadow-product-item : rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+
+.container {
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+@mixin textBlue ($font-weight, $font-size, $color) {
+  text-decoration: none;
+  font-weight: $font-weight;
+  color: $color;
+  font-size: $font-size;
+  transition: all 0.5s;
+}
+
+@mixin buttonCustom ($border-style, $back-ground, $color-text, $back-ground-hover, $color-text-hover, $border-hover) {
+  padding: 15px 40px;
+  border: $border-style;
+  background-color: $back-ground;
+  color: $color-text;
+  transition: all 0.5s;
+  border-radius: 8px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $back-ground-hover;
+    color: $color-text-hover;
+    border: $border-hover;
+  }
+}
+
+@mixin titleSection ($color-text, $font-size) {
+  font-weight: bold;
+  text-align: center;
+  color: $color-text;
+  font-size: $font-size;
+}
+
+header {
+  background-color: $color-background;
+  box-shadow: $box-shadow-header;
+  padding: 30px 0;
+  position: fixed;
+  width: 100%;
+
+  .header_content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .logo {
+      a {
+        @include textBlue(bold, 24px, $color-blue-1);
+      }
+    }
+
+    .nav {
+      ul {
+        list-style: none;
+
+        .nav-link {
+          display: inline;
+          margin-right: 20px;
+          position: relative;
+
+
+
+          a {
+            @include textBlue(normal, 16px, $color-blue-2);
+          }
+
+          &.active {
+            a {
+              color: $color-blue-1;
+            }
+
+            &::after {
+              width: 100%;
+            }
+          }
+
+          &::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: $color-blue-1;
+            transition: all 0.5s;
+          }
+
+          &:hover {
+            a {
+              color: $color-blue-1;
+            }
+
+            &::after {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.banner {
+  background-image: url("./../img/product-header-bg.jpg");
+  height: 70vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  padding-top: 150px;
+
+  .banner_content {
+    h1 {
+      @include textBlue(bold, 60px, $color-blue-1)
+    }
+
+    .sub_title {
+      margin: 10px 0 20px;
+      @include textBlue(bold, 20px, $color-blue-2 );
+    }
+
+    p {
+      @include textBlue(400, 18px, $color-blue-2 );
+      margin-bottom: 15px;
+    }
+
+    .btnInfo {
+      @include buttonCustom(2px solid $color-blue-1, $color-background, $color-blue-1, $color-blue-1, white, 2px solid transparent);
+      margin-right: 10px;
+    }
+
+    .btnShop {
+      @include buttonCustom(2px solid transparent, $color-blue-1, white, white, $color-blue-1, 2px solid $color-blue-1)
+    }
+  }
+}
+
+.product {
+  padding: 50px 0;
+
+  .product_title {
+    @include titleSection($color-blue-2, 22px);
+    margin-bottom: 30px;
+  }
+
+  .product_content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    .product_item {
+      width: calc(100% / 3 - 20px);
+      border-radius: 8px;
+      padding: 30px;
+      box-shadow: $box-shadow-product-item;
+      cursor: pointer;
+      transition: all 0.5s;
+
+      img {
+        width: 100%;
+      }
+
+      h3 {
+        display: flex;
+        justify-content: space-between;
+        @include textBlue(bold, 25px, $color-blue-1 );
+        margin-bottom: 10px;
+      }
+
+      p {
+        @include textBlue(bold, 16px, $color-blue-2);
+        margin-bottom: 15px;
+      }
+
+      .rate_buy {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .group_rate {
+          i {
+            color: $color-rate;
+          }
+        }
+
+        button {
+          @include buttonCustom(1px solid transparent, $color-blue-1, white, white, $color-blue-1, 1px solid $color-blue-1)
+        }
+      }
+
+      @for $i from 1 through 6 {
+        &:nth-child(#{$i}) {
+          animation-name: goToDown;
+          animation-duration: 2s;
+          animation-delay: (0.25s*$i);
+        }
+      }
+    }
+  }
+}
+
+@keyframes goToDown {
+  from {
+    transform: translateY(-150px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+footer {
+  background-color: $color-blue-1;
+  padding: 50px 0;
+
+  p {
+    @include textBlue(bold, 18px, white);
+    text-align: center;
+  }
+}
