@@ -3,13 +3,7 @@
 
 */
 
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: 'Montserrat', sans-serif;
-}
-
+// color 
 $color-background : #f5f9fe;
 $color-blue-1 : #2A72DC;
 $color-blue-2: #1D355E;
@@ -19,6 +13,22 @@ $color-rate : #F9D310;
 $box-shadow-header :0 2px 4px #e2ebfc;
 $box-shadow-product-item : rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
 rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+
+// breakpoint 
+$break-point: (
+  'extra-large' : 1200px,
+  'large': 992px,
+  'medium' : 768px,
+  'small': 576px
+);
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat',
+    sans-serif;
+}
 
 .container {
   max-width: 1140px;
@@ -59,8 +69,9 @@ rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 header {
   background-color: $color-background;
   box-shadow: $box-shadow-header;
+  position: relative;
+  z-index: 2;
   padding: 30px 0;
-  position: fixed;
   width: 100%;
 
   .header_content {
@@ -70,7 +81,7 @@ header {
 
     .logo {
       a {
-        @include textBlue(bold, 24px, $color-blue-1);
+        @include textBlue(bold, 24px, $color-blue-1 );
       }
     }
 
@@ -131,30 +142,45 @@ header {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center bottom;
-  padding-top: 150px;
+  padding-top: 50px;
 
   .banner_content {
-    h1 {
-      @include textBlue(bold, 60px, $color-blue-1)
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .banner_text {
+      h1 {
+        @include textBlue(bold, 60px, $color-blue-1)
+      }
+
+      .sub_title {
+        margin: 10px 0 20px;
+        @include textBlue(bold, 20px, $color-blue-2 );
+      }
+
+      p {
+        @include textBlue(400, 18px, $color-blue-2 );
+        margin-bottom: 15px;
+      }
+
+      .btnInfo {
+        @include buttonCustom(2px solid $color-blue-1, $color-background, $color-blue-1, $color-blue-1, white, 2px solid transparent);
+        margin-right: 10px;
+      }
+
+      .btnShop {
+        @include buttonCustom(2px solid transparent, $color-blue-1, white, white, $color-blue-1, 2px solid $color-blue-1);
+        box-shadow: $box-shadow-header;
+      }
     }
 
-    .sub_title {
-      margin: 10px 0 20px;
-      @include textBlue(bold, 20px, $color-blue-2 );
-    }
+    .banner_img {
+      width: 50%;
 
-    p {
-      @include textBlue(400, 18px, $color-blue-2 );
-      margin-bottom: 15px;
-    }
-
-    .btnInfo {
-      @include buttonCustom(2px solid $color-blue-1, $color-background, $color-blue-1, $color-blue-1, white, 2px solid transparent);
-      margin-right: 10px;
-    }
-
-    .btnShop {
-      @include buttonCustom(2px solid transparent, $color-blue-1, white, white, $color-blue-1, 2px solid $color-blue-1)
+      img {
+        width: 90%;
+      }
     }
   }
 }
@@ -183,6 +209,9 @@ header {
 
       img {
         width: 100%;
+        box-shadow: $box-shadow-header;
+        border-radius: 8px;
+        margin-bottom: 15px;
       }
 
       h3 {
@@ -224,18 +253,6 @@ header {
   }
 }
 
-@keyframes goToDown {
-  from {
-    transform: translateY(-150px);
-    opacity: 0;
-  }
-
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
 footer {
   background-color: $color-blue-1;
   padding: 50px 0;
@@ -243,5 +260,18 @@ footer {
   p {
     @include textBlue(bold, 18px, white);
     text-align: center;
+  }
+}
+
+
+@keyframes goToDown {
+  from {
+    transform: translateY(-150px) scale(0);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
   }
 }
